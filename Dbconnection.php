@@ -4,12 +4,12 @@ function createConnection()
 {
     $data = file_get_contents("env.json");
     $json = json_decode($data, true);
-    $user = $json["User"];
-    $password = $json["Password"];
-    $db = $json["Database"];
-    $host = $json["Host"];
-    $port = $json["Port"];
-    
+    $user = $json["DB"]["User"];
+    $password = $json["DB"]["Password"];
+    $db = $json["DB"]["Database"];
+    $host = $json["DB"]["Host"];
+    $port = $json["DB"]["Port"];
+
     try {
         $conn = new PDO("mysql:host=$host;port=$port;dbname=$db", $user, $password);
         // set the PDO error mode to exception
