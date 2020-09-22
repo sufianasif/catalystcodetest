@@ -1,12 +1,23 @@
 <?php
 include 'Dbconnection.php';
+$bool = 0;
 if ($argv[0] == "user_upload.php" && $argv[1] == null) {
     echo " Please run --help for Directives List";
 } else if ($argv[1] == "--help") {
     directivesDisplay();
 } else if($argv[1] == "--create_table") {
-    $connect=createConnection();
-    createDbTable($connect);
+    $data = file_get_contents("env.json");
+    $json = json_decode($data, true);
+    foreach ($json as $input => $input_value) {
+        if (empty($input_value)) {
+            echo "Please enter " . $input . " to create table . For commands run --help\n";
+            $bool = 1;
+            break;
+        }
+    }
+        if($bool == 0 ){
+            $connect = createConnection();
+    createDbTable($connect); }
     
 }else{
     echo "Not a valid Command";
