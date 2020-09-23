@@ -2,15 +2,16 @@
 include 'Dbconnection.php';
 $bool = 0;
 if ($argv[0] == "user_upload.php" && $argv[1] == null) {
-    echo " Please run --help for Directives List";
+    echo  "\e[32m Welcome to Test Script for Adding users. \n Please run --help for Directives List" ;
 } else if ($argv[1] == "--help") {
     directivesDisplay();
 } else if ($argv[1] == "--create_table") {
     $data = file_get_contents("env.json");
     $json = json_decode($data, true);
+    // checks if the env variables are set
     foreach ($json["DB"] as $input => $input_value) {
         if (empty($input_value)) {
-            echo "Please enter " . $input . " to create table . For commands run --help\n";
+            echo "\e[31m Please enter " . $input . " to create table . For commands run --help\n";
             $bool = 1;
             break;
         }
@@ -38,7 +39,7 @@ if ($argv[0] == "user_upload.php" && $argv[1] == null) {
     $runbool = 0;
     readCsv($runbool);
 } else {
-    echo "Not a valid Command \n";
+    echo "\e[31m Not a valid Command \n";
 }
 
 // function reads data from CSV file and inserts into the database
@@ -49,7 +50,7 @@ function readCsv($runstate)
     $file = $json["File"]["Filename"];
 
     if (empty($file)) {
-        echo "Please run --file [filename] first and enter the file name";
+        echo "\e[31m Please run --file [filename] first and enter the file name";
     } else {
 
         $row = 1;
@@ -80,15 +81,15 @@ function readCsv($runstate)
                             $sql1->bindParam(':param3', $data[2], PDO::PARAM_STR);
                             $sql1->execute();
                         } catch (PDOexception $e) {
-                            echo "Something went wrong.Data could not be inserted" . $e->getMessage();
+                            echo "e[31m Something went wrong.Data could not be inserted" . $e->getMessage();
                         }
                     }
                 } else {
-                    fwrite(STDOUT, "invalid email \n");
+                    fwrite(STDOUT, "\e[31m invalid email \n");
                 }
 
             }
-            $check_file == 0 ? fwrite(STDOUT, "Empty File") : null;
+            $check_file == 0 ? fwrite(STDOUT, "\e[31m Empty File") : null;
         }
         fclose($handle);
     }
@@ -104,7 +105,7 @@ function writeJson($datakey, $datavalue)
     $fh = fopen("env.json", 'w')
     or die("" . $datakey . "not set.Error opening output file");
     fwrite($fh, json_encode($json, JSON_UNESCAPED_UNICODE));
-    echo ("" . $datakey . " is set.");
+    echo ("\e[32m " . $datakey . " is set.");
     fclose($fh);
 }
 
@@ -124,7 +125,7 @@ database won't be altered",
         "--run - this will run all the functions and add the data to the database table",
     ];
     foreach ($arrayofdirectives as $result) {
-        echo $result . "\n";
+        echo "\e[32m".$result . "\n";
     }
 }
 
@@ -138,5 +139,5 @@ function getFilename($file)
     or die("Error opening output file");
     fwrite($fh, json_encode($json, JSON_UNESCAPED_UNICODE));
     fclose($fh);
-    echo "file name saved succeessfully. Now you can either choose to --run or --dry_run the script \n";
+    echo "\e[32m File name saved successfully. Now you can either choose to --run or --dry_run the script \n";
 }

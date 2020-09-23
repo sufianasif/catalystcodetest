@@ -15,11 +15,11 @@ function createConnection()
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        echo "Database Connected successfully \n";
+        echo "\e[32m Database Connected successfully \n";
         return $conn;
 
     } catch (PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
+        echo "e[31m Connection failed: " . $e->getMessage();
     }
 
 }
@@ -39,9 +39,9 @@ function createDbTable($conn)
     email VARCHAR(50)
     )";
             $conn->exec($sql);
-            echo "Created users table successfully";
+            echo "\e[32m  Created users table successfully";
         } catch (PDOexception $e) {
-            echo "Something went wrong.Table could not be created" . $e->getMessage();
+            echo "e[31m Something went wrong.Table could not be created" . $e->getMessage();
         }
     }
 }
