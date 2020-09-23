@@ -66,7 +66,7 @@ function readCsv($runstate)
                 $num = count($data);
                 $row++;
                 for ($c = 0; $c < $num; $c++) {
-                    echo $data[$c] . "\n";
+                    echo "\e[32m". $data[$c] . "\n";
                 }
                 //check for valid email!
                 if (filter_var($data[2], FILTER_VALIDATE_EMAIL)) {
@@ -74,14 +74,14 @@ function readCsv($runstate)
                     if ($runstate == 1) {
                         try {
 
-                            $sql1 = $connect->prepare("INSERT INTO `Users` (firstname, surname, email)
+                            $sql = $connect->prepare("INSERT INTO `Users` (firstname, surname, email)
     VALUES (:param1,:param2,:param3)");
-                            $sql1->bindParam(':param1', ucwords($data[0]), PDO::PARAM_STR);
-                            $sql1->bindParam(':param2', ucwords($data[1]), PDO::PARAM_STR);
-                            $sql1->bindParam(':param3', $data[2], PDO::PARAM_STR);
-                            $sql1->execute();
+                            $sql->bindParam(':param1', ucwords($data[0]), PDO::PARAM_STR);
+                            $sql->bindParam(':param2', ucwords($data[1]), PDO::PARAM_STR);
+                            $sql->bindParam(':param3', $data[2], PDO::PARAM_STR);
+                            $sql->execute();
                         } catch (PDOexception $e) {
-                            echo "e[31m Something went wrong.Data could not be inserted" . $e->getMessage();
+                            echo "\e[31m Something went wrong.Data could not be inserted" . $e->getMessage();
                         }
                     }
                 } else {

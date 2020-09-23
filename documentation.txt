@@ -1,0 +1,19 @@
+Database Connection
+
+1. Running the commannd "php user_upload.php" displays the welcome message and displays the command to get help for the llist of directives. 
+2. in order to connect to the database (username, password, host, db name, port) will have to be set before running --create_table command. 
+3. To set the my sql variables the commands can be run and the reespective commands can be learned from running --help. 
+4. The mySql variables are all stored in env.json file. 
+5. Upon Running --create_table command data is retrieved from env.json and mySql connection is created and then "createDbTable()" function is called which 
+   creates the table "users" if not already present in the database. 
+
+File 
+
+1. The command --file filename is run to enter the file name and is also seet in the env.json file. 
+2. Upon running --run command the data from csv will be displayed as well as stored to the database. 
+3. --dry_run on the conntrary only displays the data but doesn't insert it into the database. 
+
+
+For Question's email the developer. 
+
+Cheers! 

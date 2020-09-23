@@ -19,7 +19,7 @@ function createConnection()
         return $conn;
 
     } catch (PDOException $e) {
-        echo "e[31m Connection failed: " . $e->getMessage();
+        echo "\e[31m Connection failed: " . $e->getMessage();
     }
 
 }
@@ -36,12 +36,13 @@ function createDbTable($conn)
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(30) NOT NULL,
     surname VARCHAR(30) NOT NULL,
-    email VARCHAR(50)
+    email VARCHAR(50),
+    UNIQUE KEY unique_email (email)
     )";
             $conn->exec($sql);
             echo "\e[32m  Created users table successfully";
         } catch (PDOexception $e) {
-            echo "e[31m Something went wrong.Table could not be created" . $e->getMessage();
+            echo "\e[31m Something went wrong.Table could not be created" . $e->getMessage();
         }
     }
 }
